@@ -36,6 +36,17 @@ SpData[,EnvPO] <- apply(SpData[,EnvPO], 2, scale) # scale covariates
 
 Because Nimble wants the data in its own format, we have a function to do the conversion. here we just use linear features, rather than everything.
 
+NOTE: this chunck of code is not run, because of the following error:
+
+      Error: processing vignette 'BayesMaxEnt.Rmd' failed with diagnostics:
+      In sizeAssignAfterRecursing: 'rbern_vec' is not available or its output type is unknown. This may occur if a user-defined function name is the same as the name of a function in a package that `nimble` uses.
+       This occurred for: eigenBlock(model_y,1:11477) <<- rbern_vec(=1,p=model_Prob[1:11477],wt=model_W[1:11477])
+       This was part of the call:  {
+        eigenBlock(model_y,1:11477) <<- rbern_vec(=1,p=model_Prob[1:11477],wt=model_W[1:11477])
+      }
+
+It does work (at least for me) when copying and pasting the code. 
+
 ```{r RunModel, message=FALSE, results='hide', eval=FALSE}
 ToNimble <- SetUpMaxEnt(p=SpData$occ, data=SpData[,EnvPO], 
                         regmult = 1, lambda=0.1, classes="l")

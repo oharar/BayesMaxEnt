@@ -1,0 +1,42 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# BayesMaxEnt
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+BayesMaxEnt is an attempt to implement a Bayesian version of MaxEnt models of species distributions. It uses MCMC via the `nimble` package, along with code and ideas from `maxnet`.
+
+At the moment the vignette isn't rendering fully, but copying and pasting the code should work.
+
+## Installation
+
+You can install the development version of BayesMaxEnt from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("oharar/BayesMaxEnt")
+```
+
+## Example
+
+This would be a basic example but it is better to check the vignette.
+
+```{r example}
+library(BayesMaxEnt)
+## basic example code
+```
+

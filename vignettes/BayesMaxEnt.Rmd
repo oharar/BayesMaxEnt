@@ -36,18 +36,17 @@ SpData[,EnvPO] <- apply(SpData[,EnvPO], 2, scale) # scale covariates
 
 Because Nimble wants the data in its own format, we have a function to do the conversion. here we just use linear features, rather than everything.
 
-```{r RunModel, message=FALSE, results='hide'}
+```{r RunModel, message=FALSE, results='hide', eval=FALSE}
 ToNimble <- SetUpMaxEnt(p=SpData$occ, data=SpData[,EnvPO], 
                         regmult = 1, lambda=0.1, classes="l")
-# output <- FitMaxEnt(maxdat=ToNimble, parallel = TRUE, adaptInterval=50, 
-#                     nchains=2, nburnin = 50, niter=150, thin=1)
+output <- FitMaxEnt(maxdat=ToNimble, parallel = TRUE, adaptInterval=50,
+                    nchains=2, nburnin = 50, niter=150, thin=1)
 ```
 
 With 100 iterations we can see much, but...
 
-```{r PlotOutput}
-# mcmc_trace(output, pars = c("alpha", "beta[1]"))
-plot(1,1)
+```{r PlotOutput, eval=FALSE}
+mcmc_trace(output, pars = c("alpha", "beta[1]"))
 ```
 
 ... at least it works. Although the vignette won't render correctly, so this is a placeholder until I can persuade it that it to work.

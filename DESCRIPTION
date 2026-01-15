@@ -25,3 +25,5 @@ Suggests:
     rmarkdown
 RoxygenNote: 7.3.3
 VignetteBuilder: knitr
+URL: https://github.com/oharar/BayesMaxEnt
+BugReports: https://github.com/oharar/BayesMaxEnt/issues

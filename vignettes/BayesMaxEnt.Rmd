@@ -1,0 +1,53 @@
+---
+title: "Simple Use of BayesMaxEnt"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Simple Use of BayesMaxEnt}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, message=FALSE}
+library(BayesMaxEnt)
+#library(maxnet) # this shouldn't be needed, but the vignette doesn't work otherwise
+library(bayesplot)
+```
+
+
+Set up the data
+
+``` {r run_examples}
+library(disdat)
+CAN <- disData("CAN")
+EnvPO <- c("alt", "asp2", "ontprec", "ontprec4", "ontprecsd", "ontslp", 
+           "onttemp", "onttempsd", "onttmin4", "ontveg", "watdist")
+Species <- "can02"
+
+SpData <- rbind(CAN$po[CAN$po$spid==Species,c("occ", EnvPO)], CAN$bg[,c("occ", EnvPO)])
+SpData[,EnvPO] <- apply(SpData[,EnvPO], 2, scale) # scale covariates
+```
+
+Because Nimble wants the data in its own format, we have a function to do the conversion. here we just use linear features, rather than everything.
+
+```{r RunModel, message=FALSE, results='hide'}
+ToNimble <- SetUpMaxEnt(p=SpData$occ, data=SpData[,EnvPO], 
+                        regmult = 1, lambda=0.1, classes="l")
+# output <- FitMaxEnt(maxdat=ToNimble, parallel = TRUE, adaptInterval=50, 
+#                     nchains=2, nburnin = 50, niter=150, thin=1)
+```
+
+With 100 iterations we can see much, but...
+
+```{r PlotOutput}
+# mcmc_trace(output, pars = c("alpha", "beta[1]"))
+plot(1,1)
+```
+
+... at least it works. Although the vignette won't render correctly, so this is a placeholder until I can persuade it that it to work.

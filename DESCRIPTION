@@ -1,0 +1,27 @@
+Package: BayesMaxEnt
+Type: Package
+Title: Package to fit Bayesian version of MaxEnt for species distribution models, using MCMC with Nimble.
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Bob", "O'Hara",
+      email = "bob.ohara@ntnu.no",
+      role = c("aut", "cre")
+    )
+  )
+Description: Package uses a Bayesian Lasso and the fratures from MaxNet.
+License: GPL
+Encoding: UTF-8
+LazyData: true
+Depends: 
+    maxnet,
+    coda,
+    nimble
+Imports: 
+    parallel
+Suggests: 
+    knitr,
+    bayesplot, 
+    rmarkdown
+RoxygenNote: 7.3.3
+VignetteBuilder: knitr

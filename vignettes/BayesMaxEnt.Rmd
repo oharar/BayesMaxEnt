@@ -36,28 +36,18 @@ SpData[,EnvPO] <- apply(SpData[,EnvPO], 2, scale) # scale covariates
 
 Because Nimble wants the data in its own format, we have a function to do the conversion. here we just use linear features, rather than everything.
 
-NOTE: this chunck of code is not run, because of the following error:
+Unfotunately this is currently giving an error (it works when copying and pasting the code, but not when rendering the vignette).
 
-      Error: processing vignette 'BayesMaxEnt.Rmd' failed with diagnostics:
-      In sizeAssignAfterRecursing: 'rbern_vec' is not available or its output type is unknown. This may occur if a user-defined function name is the same as the name of a function in a package that `nimble` uses.
-       This occurred for: eigenBlock(model_y,1:11477) <<- rbern_vec(=1,p=model_Prob[1:11477],wt=model_W[1:11477])
-       This was part of the call:  {
-        eigenBlock(model_y,1:11477) <<- rbern_vec(=1,p=model_Prob[1:11477],wt=model_W[1:11477])
-      }
-
-It does work (at least for me) when copying and pasting the code. 
-
-```{r RunModel, message=FALSE, results='hide', eval=FALSE}
+```{r RunModel, message=FALSE, results='hide', eval=TRUE, error=TRUE}
 ToNimble <- SetUpMaxEnt(p=SpData$occ, data=SpData[,EnvPO], 
                         regmult = 1, lambda=0.1, classes="l")
 output <- FitMaxEnt(maxdat=ToNimble, parallel = TRUE, adaptInterval=50,
                     nchains=2, nburnin = 50, niter=150, thin=1)
 ```
 
-With 100 iterations we can see much, but...
+With 100 iterations we cannot see much, and at the moment this code is parked until the error above is sorted out.
 
 ```{r PlotOutput, eval=FALSE}
 mcmc_trace(output, pars = c("alpha", "beta[1]"))
 ```
 
-... at least it works. Although the vignette won't render correctly, so this is a placeholder until I can persuade it that it to work.

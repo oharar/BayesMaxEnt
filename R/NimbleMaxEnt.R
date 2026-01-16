@@ -3,6 +3,8 @@
 #' This should normally be used within \code{FitMaxEnt()}
 #'
 #' @export
+#' @import nimble
+#' @importFrom stats dbinom model.matrix rbinom rnorm
 #' @param Data Data (usually created by SetUpMaxEnt()).
 #' @param code Nimble code
 #' @param adaptInterval Integer. How many iterations to adapt for. Defaults to 1000
@@ -10,7 +12,7 @@
 #' @return A coda object.
 #' @examples
 #' \dontrun{
-#' NimbleMaxEnt(Data=ToNimble, code=MaxNetcode, adaptInterval=1e3,
+#' NimbleMaxEnt(Data=X, code=MaxNetcode, adaptInterval=1e3,
 #' nchains=1, nburnin = 1e3, niter=6e3, thin=1)
 #' }
 

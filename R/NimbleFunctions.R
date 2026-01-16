@@ -1,5 +1,7 @@
 #' Internal functions for Nimble: these are the underlying model
-#'
+#' dbern_vec() is a vectorised weighted Bernoulli density using in the Nimble code
+#' rbern_vec() is te corresponding RNG
+#' @noRd
 
 dbern_vec <- nimble::nimbleFunction( ## Define the distribution
   run = function(x = double(1), p = double(1), wt = double(1),

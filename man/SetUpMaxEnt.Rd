@@ -45,7 +45,7 @@ To change the basis functions (e.g. only include linear terms) use \code{classes
 }
 \examples{
 \dontrun{
-NimbleMaxEnt(Data=ToNimble, code=MaxNetcode, adaptInterval=1e3,
-nchains=1, nburnin = 1e3, niter=6e3, thin=1)
+SetUpMaxEnt(p=c(0,1), data=data.frame(x=1,1), f = maxnet.formula(p, data, ...),
+regmult = 1,lambda=1, regfun = maxnet.default.regularization)
 }
 }

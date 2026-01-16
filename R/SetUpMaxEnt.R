@@ -7,6 +7,7 @@
 #' (e.g. \code{classes="l"} for linear terms).
 #'
 #' @export
+#' @import maxnet
 #' @param p a vector of 1 (for presence) or 0 (for background).
 #' @param data a matrix or data frame of predictor variables.
 #' @param f a formula to determine the features to be used. Has a default, so can be ignored
@@ -18,8 +19,8 @@
 #' @return A list with lists Const, Data, and Inits
 #' @examples
 #' \dontrun{
-#' NimbleMaxEnt(Data=ToNimble, code=MaxNetcode, adaptInterval=1e3,
-#' nchains=1, nburnin = 1e3, niter=6e3, thin=1)
+#' SetUpMaxEnt(p=c(0,1), data=data.frame(x=1,1), f = maxnet.formula(p, data, ...),
+#' regmult = 1,lambda=1, regfun = maxnet.default.regularization)
 #' }
 
 SetUpMaxEnt <- function(p, data, f = maxnet.formula(p, data, ...), regmult = 1,

@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ```{r setup, message=FALSE}
 library(BayesMaxEnt)
-#library(maxnet) # this shouldn't be needed, but the vignette doesn't work otherwise
+library(disdat)
 library(bayesplot)
 ```
 
@@ -24,7 +24,6 @@ library(bayesplot)
 Set up the data
 
 ``` {r run_examples}
-library(disdat)
 CAN <- disData("CAN")
 EnvPO <- c("alt", "asp2", "ontprec", "ontprec4", "ontprecsd", "ontslp", 
            "onttemp", "onttempsd", "onttmin4", "ontveg", "watdist")
@@ -36,12 +35,15 @@ SpData[,EnvPO] <- apply(SpData[,EnvPO], 2, scale) # scale covariates
 
 Because Nimble wants the data in its own format, we have a function to do the conversion. here we just use linear features, rather than everything.
 
-Unfotunately this is currently giving an error (it works when copying and pasting the code, but not when rendering the vignette).
-
-```{r RunModel, message=FALSE, results='hide', eval=TRUE, error=TRUE}
+```{r SetUpData, message=FALSE, results='hide'}
 ToNimble <- SetUpMaxEnt(p=SpData$occ, data=SpData[,EnvPO], 
                         regmult = 1, lambda=0.1, classes="l")
-output <- FitMaxEnt(maxdat=ToNimble, parallel = TRUE, adaptInterval=50,
+```
+
+Unfortunately when we run the code below we currently get an an error (it works when copying and pasting the code, but not when rendering the vignette).
+
+```{r RunModel, message=FALSE, results='hide', eval=TRUE, error=TRUE}
+output <- FitMaxEnt(maxdat=ToNimble, parallel = FALSE, adaptInterval=50,
                     nchains=2, nburnin = 50, niter=150, thin=1)
 ```
 

@@ -25,7 +25,7 @@ Fit Bayesian MaxEnt model with MCMC
 }
 \examples{
 \dontrun{
-FitMaxEnt(Data=ToNimble, code=MaxNetcode,
+FitMaxEnt(Data=X, code=MaxNetcode,
 adaptInterval=5, nchains=1, nburnin = 5, niter=10, thin=1)
 }
 }

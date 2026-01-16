@@ -23,7 +23,7 @@ This should normally be used within \code{FitMaxEnt()}
 }
 \examples{
 \dontrun{
-NimbleMaxEnt(Data=ToNimble, code=MaxNetcode, adaptInterval=1e3,
+NimbleMaxEnt(Data=X, code=MaxNetcode, adaptInterval=1e3,
 nchains=1, nburnin = 1e3, niter=6e3, thin=1)
 }
 }

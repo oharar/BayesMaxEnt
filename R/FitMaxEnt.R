@@ -1,5 +1,6 @@
 #' Fit Bayesian MaxEnt model with MCMC
 #'
+#' @import coda
 #' @export
 #' @param maxdat Data (usually created by SetUpMaxEnt()).
 #' @param parallel Logical. Should the chains be run in parallel? Defaults to FALSE
@@ -9,7 +10,7 @@
 #' @return A coda object.
 #' @examples
 #' \dontrun{
-#' FitMaxEnt(Data=ToNimble, code=MaxNetcode,
+#' FitMaxEnt(Data=X, code=MaxNetcode,
 #' adaptInterval=5, nchains=1, nburnin = 5, niter=10, thin=1)
 #' }
 
@@ -30,7 +31,7 @@ FitMaxEnt <- function(maxdat, parallel=FALSE, nchains=1, nCores = 1, ...) {
     output <- as.mcmc.list(output)
 
   } else {
-      output <- NimbleMaxEnt(Data=ToNimble, code=MaxNetcode, nchains=nchains, ...)
+      output <- NimbleMaxEnt(Data=maxdat, code=MaxNetcode, nchains=nchains, ...)
   }
   output
 

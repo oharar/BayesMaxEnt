@@ -4,7 +4,7 @@
 \alias{FitMaxEnt}
 \title{Fit Bayesian MaxEnt model with MCMC}
 \usage{
-FitMaxEnt(maxdat, parallel = FALSE, nchains = 1, nCores = 1, ...)
+FitMaxEnt(maxdat, parallel = FALSE, nchains = 1, nCores = nchains, ...)
 }
 \arguments{
 \item{maxdat}{Data (usually created by SetUpMaxEnt()).}

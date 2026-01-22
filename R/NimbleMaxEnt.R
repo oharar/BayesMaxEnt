@@ -17,11 +17,11 @@
 #' }
 
 NimbleMaxEnt <- function(Data, code, adaptInterval=1e3, ...) {
-  # remove this once it's all working
-  #  source("VectorisedNimbleMaxEnt.R")
+  # This shouldn't be necessary, I think, but it's needed for parallelisation.
+  require(nimble)
 
-  Inits <- list(alpha = rnorm(1, log(1/(1+1/mean(Data$Data$y))), 1),
-                beta = rnorm(Data$Const$k, 0, sd=0.1), sigma2=rep(1, Data$Const$k))
+  Inits <- list(alpha = rnorm(1, log(1/(1+1/mean(Data$Data$y)))-log(100), 0.5),
+                beta = rnorm(Data$Const$k, 0, sd=0.1), sigma2=rep(0.1, Data$Const$k))
 
   Model <- nimbleModel(code = code, data = Data$Data,
                        constants = Data$Const, inits = Data$Inits)

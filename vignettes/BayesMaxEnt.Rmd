@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 library(BayesMaxEnt)
 library(disdat)
 library(bayesplot)
+library(parallel)
 ```
 
 
@@ -33,23 +34,26 @@ SpData <- rbind(CAN$po[CAN$po$spid==Species,c("occ", EnvPO)], CAN$bg[,c("occ", E
 SpData[,EnvPO] <- apply(SpData[,EnvPO], 2, scale) # scale covariates
 ```
 
-Because Nimble wants the data in its own format, we have a function to do the conversion. here we just use linear features, rather than everything.
+Because Nimble wants the data in its own format, we have a function to do the conversion. here we just use linear features, rather than everything MaxEnt wants to throw at the data.
 
 ```{r SetUpData, message=FALSE, results='hide'}
 ToNimble <- SetUpMaxEnt(p=SpData$occ, data=SpData[,EnvPO], 
                         regmult = 1, lambda=0.1, classes="l")
 ```
 
-Unfortunately when we run the code below we currently get an an error (it works when copying and pasting the code, but not when rendering the vignette).
+We run a relatively short set of chains, to save time. 
 
-```{r RunModel, message=FALSE, results='hide', eval=TRUE, error=TRUE}
-output <- FitMaxEnt(maxdat=ToNimble, parallel = FALSE, adaptInterval=50,
-                    nchains=2, nburnin = 50, niter=150, thin=1)
+```{r RunModel, message=FALSE, results='hide', eval=TRUE, error=FALSE}
+nburn <- 1e3; niter <- 1e3
+output <- FitMaxEnt(maxdat=ToNimble, parallel = TRUE, adaptInterval=nburn,
+                     nchains=2, nburnin = nburn, niter=nburn+niter, thin=1)
+
 ```
 
-With 100 iterations we cannot see much, and at the moment this code is parked until the error above is sorted out.
+With `r niter` iterations we cannot see much, but at least we are getting some numbers. 
+For a real analysis a longer burn-in is needed.
 
-```{r PlotOutput, eval=FALSE}
+```{r PlotOutput, eval=TRUE, fig.width=8}
 mcmc_trace(output, pars = c("alpha", "beta[1]"))
 ```
 
